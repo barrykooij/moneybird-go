@@ -1,3 +1,3 @@
-module github.com/dannyvankooten/moneybird-go
+module github.com/barrykooij/moneybird-go
 
 go 1.18
