@@ -1,8 +1,13 @@
 package moneybird
 
+import (
+	"fmt"
+	"net/http"
+	"os"
+)
+
 var testClient *Client
 
-/*
 func init() {
 	if os.Getenv("MONEYBIRD_TEST_TOKEN") == "" {
 		fmt.Printf("Environment value MONEYBIRD_TEST_TOKEN not set\n")
@@ -20,4 +25,3 @@ func init() {
 		HTTPClient:       &http.Client{},
 	}
 }
-*/
