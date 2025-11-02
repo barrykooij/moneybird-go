@@ -100,3 +100,10 @@ func (res *Response) webhook() (*Webhook, error) {
 	err := json.NewDecoder(res.Body).Decode(&webhook)
 	return webhook, err
 }
+
+func (res *Response) financialStatement() (*FinancialStatement, error) {
+	defer res.Body.Close()
+	var financialStatement *FinancialStatement
+	err := json.NewDecoder(res.Body).Decode(&financialStatement)
+	return financialStatement, err
+}

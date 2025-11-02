@@ -18,12 +18,13 @@ type Client struct {
 }
 
 type envelope struct {
-	Contact        *Contact        `json:"contact,omitempty"`
-	Invoice        *Invoice        `json:"sales_invoice,omitempty"`
-	InvoiceSending *InvoiceSending `json:"sales_invoice_sending,omitempty"`
-	InvoicePayment *InvoicePayment `json:"payment,omitempty"`
-	InvoiceNote    *InvoiceNote    `json:"note,omitempty"`
-	LedgerAccount  *LedgerAccount  `json:"ledger_account,omitempty"`
+	Contact            *Contact            `json:"contact,omitempty"`
+	Invoice            *Invoice            `json:"sales_invoice,omitempty"`
+	InvoiceSending     *InvoiceSending     `json:"sales_invoice_sending,omitempty"`
+	InvoicePayment     *InvoicePayment     `json:"payment,omitempty"`
+	InvoiceNote        *InvoiceNote        `json:"note,omitempty"`
+	LedgerAccount      *LedgerAccount      `json:"ledger_account,omitempty"`
+	FinancialStatement *FinancialStatement `json:"financial_statement,omitempty"`
 }
 
 func (c *Client) resourceURL(path string) string {
