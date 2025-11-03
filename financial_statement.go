@@ -28,27 +28,62 @@ type FinancialMutationAttributes struct {
 }
 
 type FinancialMutation struct {
-	ID                           string `json:"id"`
-	AdministrationID             string `json:"administration_id"`
-	Amount                       string `json:"amount"`
-	Code                         string `json:"code"`
-	Date                         string `json:"date"`
-	Message                      string `json:"message"`
-	ContraAccountName            string `json:"contra_account_name"`
-	ContraAccountNumber          string `json:"contra_account_number"`
-	State                        string `json:"state"`
-	AmountOpen                   string `json:"amount_open"`
-	SepaFields                   string `json:"sepa_fields"`
-	BatchReference               string `json:"batch_reference"`
-	FinancialAccountID           string `json:"financial_account_id"`
-	Currency                     string `json:"currency"`
-	OriginalAmount               string `json:"original_amount"`
-	CreatedAt                    string `json:"created_at"`
-	UpdatedAt                    string `json:"updated_at"`
-	Version                      int64  `json:"version"`
-	FinancialStatementID         string `json:"financial_statement_id"`
-	ProcessedAt                  string `json:"processed_at"`
-	AccountServicerTransactionID string `json:"account_servicer_transaction_id"`
+	ID                           string                                   `json:"id,omitempty"`
+	AdministrationID             string                                   `json:"administration_id,omitempty"`
+	Amount                       string                                   `json:"amount,omitempty"`
+	Code                         string                                   `json:"code,omitempty"`
+	Date                         string                                   `json:"date,omitempty"`
+	Message                      string                                   `json:"message,omitempty"`
+	ContraAccountName            string                                   `json:"contra_account_name,omitempty"`
+	ContraAccountNumber          string                                   `json:"contra_account_number,omitempty"`
+	State                        string                                   `json:"state,omitempty"`
+	AmountOpen                   string                                   `json:"amount_open,omitempty"`
+	SepaFields                   interface{}                              `json:"sepa_fields,omitempty"`
+	BatchReference               string                                   `json:"batch_reference,omitempty"`
+	FinancialAccountID           string                                   `json:"financial_account_id,omitempty"`
+	Currency                     string                                   `json:"currency,omitempty"`
+	OriginalAmount               string                                   `json:"original_amount,omitempty"`
+	CreatedAt                    string                                   `json:"created_at,omitempty"`
+	UpdatedAt                    string                                   `json:"updated_at,omitempty"`
+	Version                      int64                                    `json:"version,omitempty"`
+	FinancialStatementID         string                                   `json:"financial_statement_id,omitempty"`
+	ProcessedAt                  string                                   `json:"processed_at,omitempty"`
+	AccountServicerTransactionID string                                   `json:"account_servicer_transaction_id,omitempty"`
+	Payments                     []*FinancialMutationPayment              `json:"payments,omitempty"`
+	LedgerAccountBookings        []*FinancialMutationLedgerAccountBooking `json:"ledger_account_bookings,omitempty"`
+}
+
+type FinancialMutationPayment struct {
+	ID                    string `json:"id,omitempty"`
+	AdministrationID      string `json:"administration_id,omitempty"`
+	InvoiceType           string `json:"invoice_type,omitempty"`
+	InvoiceID             string `json:"invoice_id,omitempty"`
+	FinancialAccountID    string `json:"financial_account_id,omitempty"`
+	UserID                int    `json:"user_id,omitempty"`
+	PaymentTransactionID  string `json:"payment_transaction_id,omitempty"`
+	TransactionIdentifier string `json:"transaction_identifier,omitempty"`
+	Price                 string `json:"price,omitempty"`
+	PriceBase             string `json:"price_base,omitempty"`
+	PaymentDate           string `json:"payment_date,omitempty"`
+	CreditInvoiceID       string `json:"credit_invoice_id,omitempty"`
+	FinancialMutationID   string `json:"financial_mutation_id,omitempty"`
+	LedgerAccountID       string `json:"ledger_account_id,omitempty"`
+	LinkedPaymentID       string `json:"linked_payment_id,omitempty"`
+	ManualPaymentAction   string `json:"manual_payment_action,omitempty"`
+	CreatedAt             string `json:"created_at,omitempty"`
+	UpdatedAt             string `json:"updated_at,omitempty"`
+}
+
+type FinancialMutationLedgerAccountBooking struct {
+	ID                  string `json:"id,omitempty"`
+	AdministrationID    string `json:"administration_id,omitempty"`
+	FinancialMutationID string `json:"financial_mutation_id,omitempty"`
+	LedgerAccountID     string `json:"ledger_account_id,omitempty"`
+	ProjectID           string `json:"project_id,omitempty"`
+	Description         string `json:"description,omitempty"`
+	Price               string `json:"price,omitempty"`
+	CreatedAt           string `json:"created_at,omitempty"`
+	UpdatedAt           string `json:"updated_at,omitempty"`
 }
 
 type FinancialStatementGateway struct {
