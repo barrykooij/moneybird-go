@@ -62,8 +62,8 @@ func (c *LedgerAccountGateway) Get(ID string) (*LedgerAccount, error) {
 }
 
 // Create adds a ledger account to MoneyBird
-func (c *LedgerAccountGateway) Create(ledgerAccount *LedgerAccount) (*LedgerAccount, error) {
-	res, err := c.execute("POST", "ledger_accounts", &envelope{LedgerAccount: ledgerAccount})
+func (c *LedgerAccountGateway) Create(ledgerAccount *LedgerAccount, rgsCode string) (*LedgerAccount, error) {
+	res, err := c.execute("POST", "ledger_accounts", &envelope{LedgerAccount: ledgerAccount, RGSCode: rgsCode})
 	if err != nil {
 		return ledgerAccount, err
 	}

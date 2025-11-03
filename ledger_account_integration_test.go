@@ -19,7 +19,7 @@ func TestLedgerAccountGatewayCRUD(t *testing.T) {
 	acct, err := gateway.Create(&LedgerAccount{
 		Name:        "Server costs",
 		AccountType: "expenses",
-	})
+	}, "WAfsAmv")
 
 	if err != nil {
 		t.Fatal(err)
