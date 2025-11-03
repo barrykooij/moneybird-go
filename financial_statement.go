@@ -9,7 +9,7 @@ type FinancialStatement struct {
 	OfficialDate                 string                                  `json:"official_date,omitempty"`
 	OfficialBalance              string                                  `json:"official_balance,omitempty"`
 	ImporterService              string                                  `json:"importer_service,omitempty"`
-	FinancialMutations           []FinancialMutation                     `json:"financial_mutations,omitempty"`
+	FinancialMutations           []*FinancialMutation                    `json:"financial_mutations,omitempty"`
 	ImporterKey                  string                                  `json:"importer_key,omitempty"`                   // used in request
 	FinancialMutationsAttributes map[string]*FinancialMutationAttributes `json:"financial_mutations_attributes,omitempty"` // used in request
 }
