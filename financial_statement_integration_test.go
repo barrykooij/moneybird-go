@@ -2,11 +2,12 @@ package moneybird
 
 import "testing"
 
-func TestFinancialStatementGateway_Create(t *testing.T) {
+func TestFinancialStatementGatewayCreateAndDelete(t *testing.T) {
 
 	gateway := testClient.FinancialStatement()
 
-	_, err := gateway.Create(&FinancialStatement{
+	// create
+	financialStatement, err := gateway.Create(&FinancialStatement{
 		FinancialAccountID: "469657091992192361",
 		Reference:          "TestFinancialStatement_Create",
 		FinancialMutationsAttributes: map[string]*FinancialMutationAttributes{
@@ -21,6 +22,12 @@ func TestFinancialStatementGateway_Create(t *testing.T) {
 
 	if err != nil {
 		t.Fatal(err)
+	}
+
+	// delete
+	err = gateway.Delete(financialStatement)
+	if err != nil {
+		t.Error(err)
 	}
 
 }

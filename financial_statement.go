@@ -72,3 +72,17 @@ func (c *FinancialStatementGateway) Create(financialStatement *FinancialStatemen
 
 	return nil, res.error()
 }
+
+func (c *FinancialStatementGateway) Delete(financialStatement *FinancialStatement) error {
+	res, err := c.execute("DELETE", "financial_statements/"+financialStatement.ID, nil)
+	if err != nil {
+		return err
+	}
+
+	switch res.StatusCode {
+	case 204:
+		return nil
+	}
+
+	return res.error()
+}
