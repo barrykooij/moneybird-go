@@ -73,7 +73,7 @@ func (c *LedgerAccountGateway) Create(ledgerAccount *LedgerAccount, rgsCode stri
 		return res.ledgerAccount()
 	}
 
-	return nil, err
+	return nil, res.error()
 }
 
 // Update updates an existing ledger account in Moneybird
