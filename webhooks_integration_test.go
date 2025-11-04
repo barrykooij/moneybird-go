@@ -1,9 +1,7 @@
 package moneybird
 
-import (
-	"testing"
-)
-
+// Temporary disabled webhooks integration tests as the mockbin URL used is no longer available.
+/*
 func TestWebhookGatewayCreate(t *testing.T) {
 	webhook, err := testClient.Webhook().Create(&Webhook{
 		URL: "http://mockbin.org/bin/bbe7f656-12d6-4877-9fa8-5cd61f9522a9/view",
@@ -37,3 +35,4 @@ func TestWebhookGatewayListAndDelete(t *testing.T) {
 		}
 	}
 }
+*/
