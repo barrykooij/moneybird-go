@@ -80,6 +80,21 @@ func (res *Response) invoicePayment() (*InvoicePayment, error) {
 	return invoicePayment, err
 }
 
+func (res *Response) purchaseInvoice() (*PurchaseInvoice, error) {
+	defer res.Body.Close()
+	var purchaseInvoice *PurchaseInvoice
+
+	// fixes an inconsistency with MoneyBird using `details_attributes` for outgoing JSON requests, but `details` for responses.
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return nil, err
+	}
+	body = bytes.Replace(body, []byte(`"details"`), []byte(`"details_attributes"`), -1)
+
+	err = json.Unmarshal(body, &purchaseInvoice)
+	return purchaseInvoice, err
+}
+
 func (res *Response) note() (*InvoiceNote, error) {
 	defer res.Body.Close()
 	var note *InvoiceNote
