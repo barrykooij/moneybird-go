@@ -46,4 +46,25 @@ func TestPurchaseInvoiceGatewayCRUD(t *testing.T) {
 	if err != nil {
 		t.Fatalf("PurchaseInvoiceGateway.Create: %s", err) // abandon test if invoice creation fails
 	}
+
+	// update purchase invoice
+	purchaseInvoice.Reference = "updated-reference"
+	purchaseInvoice, err = gateway.Update(purchaseInvoice)
+	if err != nil {
+		t.Errorf("PurchaseInvoiceGateway.Update: %s", err)
+	}
+
+	if purchaseInvoice.Reference != "updated-reference" {
+		t.Error("PurchaseInvoiceGateway.Update: reference was not properly updated")
+	}
+
+	// get purchase invoice
+	purchaseInvoice, err = gateway.Get(purchaseInvoice.ID)
+	if err != nil {
+		t.Errorf("PurchaseInvoiceGateway.Get: %s", err)
+	}
+
+	if purchaseInvoice.Contact.ID != contact.ID {
+		t.Errorf("PurchaseInvoiceGateway.Get: invoice contact ID does not match, got %#v", purchaseInvoice.Contact.ID)
+	}
 }

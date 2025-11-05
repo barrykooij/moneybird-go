@@ -70,15 +70,45 @@ func (c *Client) PurchaseInvoice() *PurchaseInvoiceGateway {
 	return &PurchaseInvoiceGateway{c}
 }
 
-// Create creates the invoice in Moneybird
-func (c *PurchaseInvoiceGateway) Create(invoice *PurchaseInvoice) (*PurchaseInvoice, error) {
-	res, err := c.execute("POST", "documents/purchase_invoices", &envelope{PurchaseInvoice: invoice})
+// Get returns the purchase invoice with the specified ID, or nil
+func (c *PurchaseInvoiceGateway) Get(ID string) (*PurchaseInvoice, error) {
+	res, err := c.execute("GET", "documents/purchase_invoices/"+ID, nil)
 	if err != nil {
-		return invoice, err
+		return nil, err
+	}
+
+	switch res.StatusCode {
+	case http.StatusOK:
+		return res.purchaseInvoice()
+	}
+
+	return nil, res.error()
+}
+
+// Create creates the purchase invoice in Moneybird
+func (c *PurchaseInvoiceGateway) Create(purchaseInvoice *PurchaseInvoice) (*PurchaseInvoice, error) {
+	res, err := c.execute("POST", "documents/purchase_invoices", &envelope{PurchaseInvoice: purchaseInvoice})
+	if err != nil {
+		return purchaseInvoice, err
 	}
 
 	switch res.StatusCode {
 	case http.StatusCreated:
+		return res.purchaseInvoice()
+	}
+
+	return nil, res.error()
+}
+
+// Update updates the purchase invoice in Moneybird
+func (c *PurchaseInvoiceGateway) Update(purchaseInvoice *PurchaseInvoice) (*PurchaseInvoice, error) {
+	res, err := c.execute("PATCH", "documents/purchase_invoices/"+purchaseInvoice.ID, &envelope{PurchaseInvoice: purchaseInvoice})
+	if err != nil {
+		return purchaseInvoice, err
+	}
+
+	switch res.StatusCode {
+	case http.StatusOK:
 		return res.purchaseInvoice()
 	}
 
