@@ -27,7 +27,7 @@ type PurchaseInvoice struct {
 	UpdatedAt             string                   `json:"updated_at,omitempty"`
 	Version               int64                    `json:"version,omitempty"`
 	Details               []*PurchaseInvoiceDetail `json:"details_attributes,omitempty"`
-	Payments              []any                    `json:"payments,omitempty"`
+	Payments              []*InvoicePayment        `json:"payments,omitempty"`
 	Attachments           []any                    `json:"attachments,omitempty"`
 	Events                []*PurchaseInvoiceEvent  `json:"events,omitempty"`
 }
@@ -113,4 +113,49 @@ func (c *PurchaseInvoiceGateway) Update(purchaseInvoice *PurchaseInvoice) (*Purc
 	}
 
 	return nil, res.error()
+}
+
+// Delete deletes the purchase invoice in Moneybird
+func (c *PurchaseInvoiceGateway) Delete(purchaseInvoice *PurchaseInvoice) error {
+	res, err := c.execute("DELETE", "documents/purchase_invoices/"+purchaseInvoice.ID, nil)
+	if err != nil {
+		return err
+	}
+
+	switch res.StatusCode {
+	case http.StatusOK:
+		return nil
+	}
+
+	return res.error()
+}
+
+// CreatePayment Registers a payment for a purchase invoice.
+func (c *PurchaseInvoiceGateway) CreatePayment(purchaseInvoice *PurchaseInvoice, payment *InvoicePayment) error {
+	res, err := c.execute("POST", "documents/purchase_invoices/"+purchaseInvoice.ID+"/payments", &envelope{InvoicePayment: payment})
+	if err != nil {
+		return err
+	}
+
+	switch res.StatusCode {
+	case 201:
+		return nil
+	}
+
+	return res.error()
+}
+
+// DeletePayment Deletes a payment from a purchase invoice.
+func (c *PurchaseInvoiceGateway) DeletePayment(purchaseInvoice *PurchaseInvoice, payment *InvoicePayment) error {
+	res, err := c.execute("DELETE", "documents/purchase_invoices/"+purchaseInvoice.ID+"/payments/"+payment.ID, nil)
+	if err != nil {
+		return err
+	}
+
+	switch res.StatusCode {
+	case 204:
+		return nil
+	}
+
+	return res.error()
 }
