@@ -25,7 +25,7 @@ type envelope struct {
 	InvoiceNote        *InvoiceNote        `json:"note,omitempty"`
 	PurchaseInvoice    *PurchaseInvoice    `json:"purchase_invoice,omitempty"`
 	LedgerAccount      *LedgerAccount      `json:"ledger_account,omitempty"`
-	RGSCode            string              `json:"rgs_code"` // used in combination with LedgerAccount
+	RGSCode            string              `json:"rgs_code,omitempty"` // used in combination with LedgerAccount
 	FinancialStatement *FinancialStatement `json:"financial_statement,omitempty"`
 }
 
