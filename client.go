@@ -61,6 +61,10 @@ func (c *Client) execute(method string, path string, env *envelope) (*Response, 
 		}
 	}
 
+	return c.callApi(method, path, data)
+}
+
+func (c *Client) callApi(method string, path string, data []byte) (*Response, error) {
 	req, err := c.newRequest(method, path, data)
 	if err != nil {
 		return nil, err
