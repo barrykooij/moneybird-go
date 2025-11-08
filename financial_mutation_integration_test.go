@@ -38,7 +38,7 @@ func TestLinkBooking(t *testing.T) {
 	err = fmGateway.LinkBooking(financialStatement.FinancialMutations[0].ID, &LinkBookingRequest{
 		BookingType: "LedgerAccount",
 		BookingID:   "210552408975083053",
-		Price:       "5.12",
+		PriceBase:   "5.12",
 		Description: "Linked via integration test",
 	})
 
